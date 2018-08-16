@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TickTackToe
+namespace TickTackToe.Game
 {
     public class Status
     {

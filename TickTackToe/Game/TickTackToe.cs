@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TickTackToe
+namespace TickTackToe.Game
 {
     public class TickTackToe
     {

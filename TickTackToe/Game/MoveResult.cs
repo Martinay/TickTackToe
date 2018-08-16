@@ -1,4 +1,4 @@
-﻿namespace TickTackToe
+﻿namespace TickTackToe.Game
 {
     public enum MoveResult
     {
