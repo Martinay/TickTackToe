@@ -18,7 +18,7 @@ namespace TickTackToe.Game
 
         public Status GetStatus()
         {
-            return new Status(_gameStatus, _currentPlayer, _field);
+            return new Status(_gameStatus, _currentPlayer, _field.Select(x => x.ToList()).ToList());
         }
 
         public MoveResult Move(Player player, int x, int y)
