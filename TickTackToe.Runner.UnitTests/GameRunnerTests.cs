@@ -4,7 +4,7 @@ using NUnit.Framework;
 using TickTackToe.Agent;
 using TickTackToe.Game;
 
-namespace TickTackToe.UnitTests
+namespace TickTackToe.Runner.UnitTests
 {
     [TestFixture]
     public class GameRunnerTests

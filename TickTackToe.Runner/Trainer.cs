@@ -1,6 +1,6 @@
 ﻿using TickTackToe.Game;
 
-namespace TickTackToe
+namespace TickTackToe.Runner
 {
     public class Trainer
     {
