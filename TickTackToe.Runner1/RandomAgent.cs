@@ -4,7 +4,7 @@ using TickTackToe.Game;
 
 namespace TickTackToe.Runner
 {
-    public class RandomAgent : IAgent
+    class RandomAgent : IAgent
     {
         public Move GetNextMove(Status status)
         {

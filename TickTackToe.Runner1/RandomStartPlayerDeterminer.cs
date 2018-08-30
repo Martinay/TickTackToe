@@ -3,7 +3,7 @@ using TickTackToe.Game;
 
 namespace TickTackToe.Runner
 {
-    public class RandomStartPlayerDeterminer : IStartPlayerDeterminer
+    class RandomStartPlayerDeterminer : IStartPlayerDeterminer
     {
         public Player GetStartPlayer()
         {
