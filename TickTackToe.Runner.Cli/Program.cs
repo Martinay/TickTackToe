@@ -14,14 +14,12 @@ namespace TickTackToe.Runner.Cli
             trainer.Train(5);
 
             var runner = new GameRunner(agent0, agent1, startPlayerDeterminer);
-            bool canContinue;
-            do
-            {
-                canContinue = runner.MoveNext();
-                Console.WriteLine("nextMove");
-            } while (canContinue);
 
-            Console.WriteLine($"Game finished {runner.Status.GameStatus}");
+            var status = runner.RunGame();
+
+            runner.Moves.ForEach(x => Console.WriteLine($"{x.Player} : {x.Move}"));
+
+            Console.WriteLine($"Game finished: {status.GameStatus}");
             Console.ReadLine();
         }
     }

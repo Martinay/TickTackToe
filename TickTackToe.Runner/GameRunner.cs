@@ -1,4 +1,5 @@
-﻿using TickTackToe.Game;
+﻿using System.Collections.Generic;
+using TickTackToe.Game;
 
 namespace TickTackToe.Runner
 {
@@ -6,27 +7,41 @@ namespace TickTackToe.Runner
     {
         private readonly IAgent _player0;
         private readonly IAgent _player1;
-        private readonly Game.TickTackToe _game;
+        private readonly IStartPlayerDeterminer _startPlayerDeterminer;
 
         public GameRunner(IAgent player0, IAgent player1, IStartPlayerDeterminer startPlayerDeterminer)
         {
             _player0 = player0;
             _player1 = player1;
+            _startPlayerDeterminer = startPlayerDeterminer;
+        }
+        
+        public List<ExecutedMove> Moves { get; set; }
 
-            _game = new Game.TickTackToe(startPlayerDeterminer);
-            Status = _game.GetStatus();
+        public Status RunGame()
+        {
+            var game = new Game.TickTackToe(_startPlayerDeterminer);
+            Moves = new List<ExecutedMove>();
+            bool canContinue;
+            do
+            {
+                canContinue = MoveNext(game);
+            } while (canContinue);
+
+            return game.GetStatus();
         }
 
-        public Status Status { get; private set; }
-
-        public bool MoveNext()
+        private bool MoveNext(Game.TickTackToe game)
         {
-            var move = Status.Player == Player.Player0 ? _player0.GetNextMove(Status) : _player1.GetNextMove(Status);
+            var status = game.GetStatus();
+            var move = status.Player == Player.Player0 ? _player0.GetNextMove(status) : _player1.GetNextMove(status);
 
-            _game.Move(Status.Player, move.X, move.Y);
+            Moves.Add(new ExecutedMove(status.Player, move));
 
-            Status = _game.GetStatus();
-            return Status.GameStatus == GameStatus.InGame;
+            game.Move(status.Player, move.X, move.Y);
+
+            status = game.GetStatus();
+            return status.GameStatus == GameStatus.InGame;
         }
     }
 }

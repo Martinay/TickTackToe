@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Linq;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using TickTackToe.Agent;
@@ -17,104 +19,85 @@ namespace TickTackToe.Runner.UnitTests
             _mockedStartPlayerDeterminer = new Mock<IStartPlayerDeterminer>();
             _mockedStartPlayerDeterminer.Setup(x => x.GetStartPlayer()).Returns(Player.Player0);
         }
-
-        [Test]
-        public void IfARunnerIsInitialized_ThenAgent0ShouldDoTheFirstMove()
-        {
-            // Arrange
-            var mockedAgent0 = new Mock<IAgent>();
-            mockedAgent0.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(0,0));
-            var mockedAgent1 = new Mock<IAgent>();
-            var runner = GetRunner(mockedAgent0.Object, mockedAgent1.Object);
-
-            // Act
-            var canContinue = runner.MoveNext();
-
-            // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Once);
-            mockedAgent1.VerifyNoOtherCalls();
-        }
         
         [Test]
-        public void IfAgent0AndAgent1_ShouldBeCalledAfterEachOther()
+        public void IfRunGameIsExecuted_ThenItShouldRunTillTheEnd()
         {
             // Arrange
-            var mockedAgent0 = new Mock<IAgent>();
-            mockedAgent0.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(0,0));
-            var mockedAgent1 = new Mock<IAgent>();
-            mockedAgent1.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(1,1));
-            var runner = GetRunner(mockedAgent0.Object, mockedAgent1.Object);
+            var agent0Counter = 0;
+            var agent0 = new Mock<IAgent>();
+            var agent0Move0 = new Move(0, 0);
+            var agent0Move1 = new Move(1, 0);
+            var agent0Move2 = new Move(2, 0);
+
+            agent0.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(() =>
+            {
+                Move move;
+                switch (agent0Counter)
+                {
+                    case 0:
+                        move = agent0Move0;
+                        break;
+                    case 1:
+                        move = agent0Move1;
+                        break;
+                    case 2:
+                        move = agent0Move2;
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException();
+                }
+                agent0Counter++;
+                return move;
+            });
+
+            var agent1Counter = 0;
+            var agent1Move0 = new Move(0, 1);
+            var agent1Move1 = new Move(1, 1);
+
+            var agent1 = new Mock<IAgent>();
+            agent1.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(() =>
+            {
+                Move move;
+                switch (agent1Counter)
+                {
+                    case 0:
+                        move = agent1Move0;
+                        break;
+                    case 1:
+                        move = agent1Move1;
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException();
+                }
+                agent1Counter++;
+                return move;
+            });
+            var runner = GetRunner(agent0.Object, agent1.Object);
 
             // Act
-            var canContinue = runner.MoveNext();
+            var status = runner.RunGame();
 
             // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Once);
-            mockedAgent1.VerifyNoOtherCalls();
+            status.GameStatus.Should().Be(GameStatus.Player0Won);
+            runner.Moves.Should().HaveCount(5);
 
-            // Act
-            canContinue = runner.MoveNext();
+            var firstMove = runner.Moves.First();
+            firstMove.Player.Should().Be(Player.Player0);
+            firstMove.Move.Should().Be(agent0Move0);
+            var secondMove = runner.Moves[1];
+            secondMove.Player.Should().Be(Player.Player1);
+            secondMove.Move.Should().Be(agent1Move0);
+            var thirdMove = runner.Moves[2];
+            thirdMove.Player.Should().Be(Player.Player0);
+            thirdMove.Move.Should().Be(agent0Move1);
+            var forthMove = runner.Moves[3];
+            forthMove.Player.Should().Be(Player.Player1);
+            forthMove.Move.Should().Be(agent1Move1);
+            var fifthMove = runner.Moves[4];
+            fifthMove.Player.Should().Be(Player.Player0);
+            fifthMove.Move.Should().Be(agent0Move2);
 
-            // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.VerifyNoOtherCalls();
-            mockedAgent1.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Once);
-        }
-        
-        [Test]
-        public void IfAgent0Won_ThenTheMoveNextMethodShouldReturnFalse()
-        {
-            // Arrange
-            var mockedAgent0 = new Mock<IAgent>();
-            mockedAgent0.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(0, 0));
-            var mockedAgent1 = new Mock<IAgent>();
-            mockedAgent1.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(1, 1));
-            var runner = GetRunner(mockedAgent0.Object, mockedAgent1.Object);
-
-            // Act
-            var canContinue = runner.MoveNext();
-
-            // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Once);
-            mockedAgent1.VerifyNoOtherCalls();
-
-            // Act
-            canContinue = runner.MoveNext();
-
-            // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.VerifyNoOtherCalls();
-            mockedAgent1.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Once);
-            
-            // Act
-            mockedAgent0.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(1, 0));
-            canContinue = runner.MoveNext();
-
-            // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Exactly(2));
-            mockedAgent1.VerifyNoOtherCalls();
-            
-            // Act
-            mockedAgent1.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(1, 2));
-            canContinue = runner.MoveNext();
-
-            // Assert
-            canContinue.Should().BeTrue();
-            mockedAgent0.VerifyNoOtherCalls();
-            mockedAgent1.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Exactly(2));
-            
-            // Act
-            mockedAgent0.Setup(x => x.GetNextMove(It.IsAny<Status>())).Returns(new Move(2, 0));
-            canContinue = runner.MoveNext();
-
-            // Assert
-            canContinue.Should().BeFalse();
-            mockedAgent0.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Exactly(3));
-            mockedAgent1.VerifyNoOtherCalls();
         }
 
         private GameRunner GetRunner(IAgent agent0, IAgent agent1)
