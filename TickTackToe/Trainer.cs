@@ -6,11 +6,13 @@ namespace TickTackToe
     {
         private readonly IAgent _agent0;
         private readonly IAgent _agent1;
+        private readonly IStartPlayerDeterminer _startPlayerDeterminer;
 
-        public Trainer(IAgent agent0, IAgent agent1)
+        public Trainer(IAgent agent0, IAgent agent1, IStartPlayerDeterminer startPlayerDeterminer)
         {
             _agent0 = agent0;
             _agent1 = agent1;
+            _startPlayerDeterminer = startPlayerDeterminer;
         }
 
         public void Train(int episodes)
@@ -23,7 +25,7 @@ namespace TickTackToe
 
         private void TrainEpisode()
         {
-            var game = new Game.TickTackToe();
+            var game = new Game.TickTackToe(_startPlayerDeterminer);
             var currentStatus = game.GetStatus();
             while (currentStatus.GameStatus == GameStatus.InGame)
             {

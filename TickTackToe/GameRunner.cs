@@ -8,12 +8,12 @@ namespace TickTackToe
         private readonly IAgent _player1;
         private readonly Game.TickTackToe _game;
 
-        public GameRunner(IAgent player0, IAgent player1)
+        public GameRunner(IAgent player0, IAgent player1, IStartPlayerDeterminer startPlayerDeterminer)
         {
             _player0 = player0;
             _player1 = player1;
 
-            _game = new Game.TickTackToe();
+            _game = new Game.TickTackToe(startPlayerDeterminer);
             Status = _game.GetStatus();
         }
 

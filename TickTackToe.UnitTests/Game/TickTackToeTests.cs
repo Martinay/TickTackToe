@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using TickTackToe.Game;
 
-namespace TickTackToe.UnitTests
+namespace TickTackToe.UnitTests.Game
 {
     [TestFixture]
     public class TickTackToeTests
     {
+        private Mock<IStartPlayerDeterminer> _mockedStartPlayerDeterminer;
+
+        [SetUp]
+        public void Setup()
+        {
+            _mockedStartPlayerDeterminer = new Mock<IStartPlayerDeterminer>();
+            _mockedStartPlayerDeterminer.Setup(x => x.GetStartPlayer()).Returns(Player.Player0);
+        }
+
         [Test]
         public void IfPlayer0HasWonDiagonalBottomLeftTopRight_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 2, 0).Should().Be(MoveResult.Valid);
@@ -37,7 +47,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer1HasWonDiagonalBottomLeftTopRight_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 1, 0).Should().Be(MoveResult.Valid);
@@ -62,7 +72,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer0HasWonDiagonalTopLeftBottomRight_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 0, 0).Should().Be(MoveResult.Valid);
@@ -86,7 +96,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer1HasWonDiagonalTopLeftBottomRight_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 1, 0).Should().Be(MoveResult.Valid);
@@ -111,7 +121,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer0HasWonVertical_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 0, 0).Should().Be(MoveResult.Valid);
@@ -135,7 +145,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer1HasWonVertical_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 0, 0).Should().Be(MoveResult.Valid);
@@ -160,7 +170,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer0HasWonHorizontal_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 0, 0).Should().Be(MoveResult.Valid);
@@ -184,7 +194,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayer1HasWonHorizontal_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 0, 0).Should().Be(MoveResult.Valid);
@@ -209,7 +219,7 @@ namespace TickTackToe.UnitTests
         public void IfTheGameIsADraw_ThenTheResultShouldBeCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act && Assert
             game.Move(Player.Player0, 0, 0).Should().Be(MoveResult.Valid);
@@ -237,7 +247,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayerMakesAnMoveOnAnAlreadyAssignedField_ThenTheGameShouldEnd()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
             game.Move(Player.Player0, 0, 0);
 
             // Act
@@ -254,7 +264,7 @@ namespace TickTackToe.UnitTests
         public void IfGameEndedAndAPlayerMakesAnotherMove_ThenThereShouldBeAnException()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
             game.Move(Player.Player0, 0, 0);
             game.Move(Player.Player1, 0, 0);
 
@@ -269,7 +279,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayerMakesAMoveOutOfBounds_ThenTheGameShouldThrowAnException()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act
             Action actionPositiveX = () => game.Move(Player.Player0, 0, 3);
@@ -288,7 +298,7 @@ namespace TickTackToe.UnitTests
         public void IfWrongPlayerShouldMove_ThenThereShouldBeAnException()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act
             Action moveAction = () => game.Move(Player.Player1, 0, 1);
@@ -301,7 +311,7 @@ namespace TickTackToe.UnitTests
         public void IfPlayerMakesAValidMove_ThenTheStatusIsCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act
             var moveResult = game.Move(Player.Player0, 0, 0);
@@ -323,7 +333,7 @@ namespace TickTackToe.UnitTests
         public void IfGameIsInitialised_ThenTheStatusIsCorrect()
         {
             // Arrange
-            var game = new Game.TickTackToe();
+            var game = GetGame();
 
             // Act
             var status = game.GetStatus();
@@ -335,6 +345,11 @@ namespace TickTackToe.UnitTests
             status.Field[0].Should().AllBeEquivalentTo(Player.Undefined);
             status.Field[1].Should().AllBeEquivalentTo(Player.Undefined);
             status.Field[2].Should().AllBeEquivalentTo(Player.Undefined);
+        }
+        
+        private TickTackToe.Game.TickTackToe GetGame()
+        {
+            return new TickTackToe.Game.TickTackToe(_mockedStartPlayerDeterminer.Object);
         }
     }
 }

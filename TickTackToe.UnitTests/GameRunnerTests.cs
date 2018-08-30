@@ -9,6 +9,15 @@ namespace TickTackToe.UnitTests
     [TestFixture]
     public class GameRunnerTests
     {
+        private Mock<IStartPlayerDeterminer> _mockedStartPlayerDeterminer;
+
+        [SetUp]
+        public void Setup()
+        {
+            _mockedStartPlayerDeterminer = new Mock<IStartPlayerDeterminer>();
+            _mockedStartPlayerDeterminer.Setup(x => x.GetStartPlayer()).Returns(Player.Player0);
+        }
+
         [Test]
         public void IfARunnerIsInitialized_ThenAgent0ShouldDoTheFirstMove()
         {
@@ -110,7 +119,7 @@ namespace TickTackToe.UnitTests
 
         private GameRunner GetRunner(IAgent agent0, IAgent agent1)
         {
-            return new GameRunner(agent0, agent1);
+            return new GameRunner(agent0, agent1, _mockedStartPlayerDeterminer.Object);
         }
     }
 }

@@ -9,6 +9,15 @@ namespace TickTackToe.UnitTests
     [TestFixture]
     public class TrainerTests
     {
+        private Mock<IStartPlayerDeterminer> _mockedStartPlayerDeterminer;
+
+        [SetUp]
+        public void Setup()
+        {
+            _mockedStartPlayerDeterminer = new Mock<IStartPlayerDeterminer>();
+            _mockedStartPlayerDeterminer.Setup(x => x.GetStartPlayer()).Returns(Player.Player0);
+        }
+
         [Test]
         public void IfAnAgentShouldBeTrained_ThenTheGetMoveAndTheObserveMethodShouldBeCalled()
         {
@@ -155,7 +164,7 @@ namespace TickTackToe.UnitTests
 
         private Trainer GetTrainer(IAgent agent0, IAgent agent1)
         {
-            return new Trainer(agent0, agent1);
+            return new Trainer(agent0, agent1, _mockedStartPlayerDeterminer.Object);
         }
     }
 }

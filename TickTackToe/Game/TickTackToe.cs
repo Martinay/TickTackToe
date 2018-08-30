@@ -6,6 +6,11 @@ namespace TickTackToe.Game
 {
     public class TickTackToe
     {
+        public TickTackToe(IStartPlayerDeterminer startPlayerDeterminer)
+        {
+            _currentPlayer = startPlayerDeterminer.GetStartPlayer();
+        }
+
         private readonly List<List<Player>> _field = new List<List<Player>>(3)
         {
             new List<Player>(3) {Player.Undefined, Player.Undefined, Player.Undefined},
@@ -13,8 +18,8 @@ namespace TickTackToe.Game
             new List<Player>(3) {Player.Undefined, Player.Undefined, Player.Undefined}
         };
 
-        private Player _currentPlayer = Player.Player0;
         private GameStatus _gameStatus = GameStatus.InGame;
+        private Player _currentPlayer;
 
         public Status GetStatus()
         {
