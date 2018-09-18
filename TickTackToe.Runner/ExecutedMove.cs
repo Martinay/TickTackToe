@@ -5,13 +5,15 @@ namespace TickTackToe.Runner
 {
     public class ExecutedMove
     {
-        public ExecutedMove(Player player, Move move)
+        public ExecutedMove(Status status, Move move, MoveResult moveResult)
         {
-            Player = player;
+            Status = status;
             Move = move;
+            MoveResult = moveResult;
         }
 
         public Move Move { get; }
-        public Player Player { get; }
+        public MoveResult MoveResult { get; }
+        public Status Status { get; }
     }
 }

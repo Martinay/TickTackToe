@@ -83,19 +83,19 @@ namespace TickTackToe.Runner.UnitTests
             runner.Moves.Should().HaveCount(5);
 
             var firstMove = runner.Moves.First();
-            firstMove.Player.Should().Be(Player.Player0);
+            firstMove.Status.Player.Should().Be(Player.Player0);
             firstMove.Move.Should().Be(agent0Move0);
             var secondMove = runner.Moves[1];
-            secondMove.Player.Should().Be(Player.Player1);
+            secondMove.Status.Player.Should().Be(Player.Player1);
             secondMove.Move.Should().Be(agent1Move0);
             var thirdMove = runner.Moves[2];
-            thirdMove.Player.Should().Be(Player.Player0);
+            thirdMove.Status.Player.Should().Be(Player.Player0);
             thirdMove.Move.Should().Be(agent0Move1);
             var forthMove = runner.Moves[3];
-            forthMove.Player.Should().Be(Player.Player1);
+            forthMove.Status.Player.Should().Be(Player.Player1);
             forthMove.Move.Should().Be(agent1Move1);
             var fifthMove = runner.Moves[4];
-            fifthMove.Player.Should().Be(Player.Player0);
+            fifthMove.Status.Player.Should().Be(Player.Player0);
             fifthMove.Move.Should().Be(agent0Move2);
 
         }

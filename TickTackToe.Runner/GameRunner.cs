@@ -36,9 +36,8 @@ namespace TickTackToe.Runner
             var status = game.GetStatus();
             var move = status.Player == Player.Player0 ? _player0.GetNextMove(status) : _player1.GetNextMove(status);
 
-            Moves.Add(new ExecutedMove(status.Player, move));
-
-            game.Move(status.Player, move.X, move.Y);
+            var moveResult = game.Move(status.Player, move.X, move.Y);
+            Moves.Add(new ExecutedMove(status, move, moveResult));
 
             status = game.GetStatus();
             return status.GameStatus == GameStatus.InGame;
