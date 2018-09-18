@@ -7,7 +7,7 @@ namespace TickTackToe.Runner.Cli
 {
     class Program
     {
-        private const int MaxTrainingEpisodes = 10;
+        private const int MaxTrainingEpisodes = 100000;
         private const bool LimitTrainingTime = true;
 
         static void Main()
