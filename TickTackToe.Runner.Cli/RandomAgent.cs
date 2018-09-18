@@ -6,6 +6,8 @@ namespace TickTackToe.Runner.Cli
 {
     public class RandomAgent : IAgent
     {
+        public bool IsTraining { get; set; }
+
         public Move GetNextMove(Status status)
         {
             var random = new Random();

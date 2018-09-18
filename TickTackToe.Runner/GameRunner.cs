@@ -14,6 +14,9 @@ namespace TickTackToe.Runner
         {
             _player0 = player0;
             _player1 = player1;
+            _player0.IsTraining = false;
+            _player1.IsTraining = false;
+
             _startPlayerDeterminer = startPlayerDeterminer;
         }
         
