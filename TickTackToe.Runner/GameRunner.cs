@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TickTackToe.Agent;
 using TickTackToe.Game;
 
 namespace TickTackToe.Runner

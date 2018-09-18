@@ -2,7 +2,7 @@
 using TickTackToe.Agent;
 using TickTackToe.Game;
 
-namespace TickTackToe.Runner
+namespace TickTackToe.Runner.Cli
 {
     public class RandomAgent : IAgent
     {

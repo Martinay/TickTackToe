@@ -1,7 +1,6 @@
-﻿using TickTackToe.Agent;
-using TickTackToe.Game;
+﻿using TickTackToe.Game;
 
-namespace TickTackToe
+namespace TickTackToe.Agent
 {
     public interface IAgent
     {

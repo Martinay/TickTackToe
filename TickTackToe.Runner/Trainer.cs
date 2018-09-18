@@ -1,4 +1,5 @@
-﻿using TickTackToe.Game;
+﻿using TickTackToe.Agent;
+using TickTackToe.Game;
 
 namespace TickTackToe.Runner
 {
