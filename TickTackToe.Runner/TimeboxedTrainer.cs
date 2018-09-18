@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using TickTackToe.Agent;
 using TickTackToe.Game;
@@ -100,13 +102,9 @@ namespace TickTackToe.Runner
             var timeLeft = _maxTime - stopwatch.Elapsed;
 
             stopwatch.Start();
-            var task = Task.Run(func);
-            var finishedInTime = Task.WaitAll(new Task[] {task}, timeLeft);
+            var result = func();
             stopwatch.Stop();
-            if (!finishedInTime)
-                return default(T);
-
-            return task.Result;
+            return stopwatch.Elapsed > timeLeft ? default(T) : result;
         }
     }
 }
