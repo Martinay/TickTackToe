@@ -8,6 +8,7 @@ namespace TickTackToe.Runner.Cli
     class Program
     {
         private const int MaxTrainingEpisodes = 100000;
+        private const int TournamentRuns = 100;
         private const bool LimitTrainingTime = true;
 
         static void Main()
@@ -31,6 +32,13 @@ namespace TickTackToe.Runner.Cli
             runner.Moves.ForEach(PrintMove);
 
             Console.WriteLine($"Game finished: {status.GameStatus}");
+
+            // Running tournament
+            Console.WriteLine("starting tournament mode");
+            var tournamentRunner = new TournamentRunner(agent0, agent1, startPlayerDeterminer);
+            var result = tournamentRunner.RunGame(TournamentRuns);
+            Console.WriteLine($"player 0 : {result.Player0Won} player 1 : {result.Player1Won} draw : {result.Draw}");
+
             Console.ReadLine();
         }
 
