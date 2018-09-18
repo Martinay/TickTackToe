@@ -21,6 +21,25 @@ namespace TickTackToe.Runner.UnitTests
             _mockedStartPlayerDeterminer.Setup(x => x.GetStartPlayer()).Returns(Player.Player0);
         }
 
+        [Test]
+        public void IfTheTrainerIsCreated_ThenThePlayerIsSetCorrectly()
+        {
+            // Arrange
+            var agent0 = new Mock<IAgent>();
+            var playerAgent0 = Player.Undefined;
+            agent0.SetupSet(x => x.Player = It.IsAny<Player>()).Callback<Player>(value => playerAgent0 = value);
+
+            var agent1 = new Mock<IAgent>();
+            var playerAgent1 = Player.Undefined;
+            agent1.SetupSet(x => x.Player = It.IsAny<Player>()).Callback<Player>(value => playerAgent1 = value);
+
+            // Act
+            var trainer = GetTrainer(agent0.Object, agent1.Object, TimeSpan.FromSeconds(1));
+
+            // Assert
+            playerAgent0.Should().Be(Player.Player0);
+            playerAgent1.Should().Be(Player.Player1);
+        }
 
         [Test]
         public void IfTheTrainerIsCreate_ThenTheIsTrainingFlagIsSet()

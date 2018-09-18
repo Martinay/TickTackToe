@@ -13,8 +13,12 @@ namespace TickTackToe.Runner
         {
             _agent0 = agent0;
             _agent1 = agent1;
+
             _agent0.IsTraining = true;
             _agent1.IsTraining = true;
+
+            _agent0.Player = Player.Player0;
+            _agent1.Player = Player.Player1;
 
             _startPlayerDeterminer = startPlayerDeterminer;
         }
