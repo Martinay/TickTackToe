@@ -17,7 +17,7 @@ namespace TickTackToe.Game
         public Player Player { get; }
         public List<List<Player>> Field { get; }
 
-        private int GetFieldIdentifier()
+        public int GetFieldIdentifier()
         {
             //Copyright R2D
             var sb = new StringBuilder();
