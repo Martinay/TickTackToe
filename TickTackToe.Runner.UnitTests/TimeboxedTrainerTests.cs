@@ -167,13 +167,18 @@ namespace TickTackToe.Runner.UnitTests
 
             agent0.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Exactly(3));
             agent1.Verify(x => x.GetNextMove(It.IsAny<Status>()), Times.Exactly(2));
-            agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, It.IsAny<Move>()), Times.Exactly(3));
+            agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, It.IsAny<Move>()), Times.Exactly(5));
             agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent0Move0), Times.Once);
             agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent0Move1), Times.Once);
             agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent0Move2), Times.Once);
-            agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, It.IsAny<Move>()), Times.Exactly(2));
+            agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent1Move0), Times.Once);
+            agent0.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent1Move1), Times.Once);
+            agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, It.IsAny<Move>()), Times.Exactly(5));
             agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent1Move0), Times.Once);
             agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent1Move1), Times.Once);
+            agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent0Move0), Times.Once);
+            agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent0Move1), Times.Once);
+            agent1.Verify(x => x.Observe(It.IsAny<Status>(), It.IsAny<Status>(), MoveResult.Valid, agent0Move2), Times.Once);
         }
 
         private TimeboxedTrainer GetTrainer(IAgent agent0, IAgent agent1, TimeSpan timeout)

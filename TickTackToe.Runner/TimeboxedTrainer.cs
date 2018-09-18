@@ -54,8 +54,9 @@ namespace TickTackToe.Runner
             var currentStatus = game.GetStatus();
             while (currentStatus.GameStatus == GameStatus.InGame)
             {
-                var agent = currentStatus.Player == Player.Player0 ? _agent0 : _agent1;
-                var move = MeasureExecutionTimeAndStopAtMaxTime(currentStatus.Player, () => agent.GetNextMove(currentStatus));
+                var currentTrainer = currentStatus.Player == Player.Player0 ? _agent0 : _agent1;
+                var otherTrainer = currentStatus.Player == Player.Player0 ? _agent1 : _agent0;
+                var move = MeasureExecutionTimeAndStopAtMaxTime(currentTrainer.Player, () => currentTrainer.GetNextMove(currentStatus));
 
                 if (move == null)
                     return currentStatus.Player == Player.Player0
@@ -67,9 +68,15 @@ namespace TickTackToe.Runner
                 var oldStatus = currentStatus;
                 currentStatus = game.GetStatus();
 
-                var inTime = MeasureExecutionTimeAndStopAtMaxTime(currentStatus.Player, () => agent.Observe(oldStatus, currentStatus, moveResult, move));
+                var inTime = MeasureExecutionTimeAndStopAtMaxTime(currentTrainer.Player, () => currentTrainer.Observe(oldStatus, currentStatus, moveResult, move));
                 if (!inTime)
-                    return currentStatus.Player == Player.Player0
+                    return currentTrainer.Player == Player.Player0
+                        ? TimeboxedTrainingResult.Agent0TookTooLong
+                        : TimeboxedTrainingResult.Agent1TookTooLong;
+
+                inTime = MeasureExecutionTimeAndStopAtMaxTime(otherTrainer.Player, () => otherTrainer.Observe(oldStatus, currentStatus, moveResult, move));
+                if (!inTime)
+                    return otherTrainer.Player == Player.Player0
                         ? TimeboxedTrainingResult.Agent0TookTooLong
                         : TimeboxedTrainingResult.Agent1TookTooLong;
             }
