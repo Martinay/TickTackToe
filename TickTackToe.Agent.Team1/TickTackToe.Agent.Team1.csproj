@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="NeuralNetworkCSharp.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NeuralNetworkCSharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TickTackToe\TickTackToe.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NeuralNetworkCSharp">
+      <HintPath>NeuralNetworkCSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

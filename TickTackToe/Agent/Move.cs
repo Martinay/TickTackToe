@@ -15,5 +15,6 @@
         {
             return $"X: {X} Y: {Y}";
         }
+        public string GetIdentifier() => $"{X}_{Y}";
     }
 }

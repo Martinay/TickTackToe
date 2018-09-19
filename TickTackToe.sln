@@ -7,11 +7,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TickTackToe", "TickTackToe\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TickTackToe.UnitTests", "TickTackToe.UnitTests\TickTackToe.UnitTests.csproj", "{82E735F1-9C7E-42A8-92AC-D38B252CCAA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Runner", "TickTackToe.Runner\TickTackToe.Runner.csproj", "{4AE80022-9DFB-4260-8D72-60DE56AD536F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TickTackToe.Runner", "TickTackToe.Runner\TickTackToe.Runner.csproj", "{4AE80022-9DFB-4260-8D72-60DE56AD536F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Runner.Cli", "TickTackToe.Runner.Cli\TickTackToe.Runner.Cli.csproj", "{A7C68AB5-43DB-4189-8A05-1891BC3FAB35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TickTackToe.Runner.Cli", "TickTackToe.Runner.Cli\TickTackToe.Runner.Cli.csproj", "{A7C68AB5-43DB-4189-8A05-1891BC3FAB35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Runner.UnitTests", "TickTackToe.Runner.UnitTests\TickTackToe.Runner.UnitTests.csproj", "{B8C3F0DF-C084-4D94-B623-24F3F19E9075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TickTackToe.Runner.UnitTests", "TickTackToe.Runner.UnitTests\TickTackToe.Runner.UnitTests.csproj", "{B8C3F0DF-C084-4D94-B623-24F3F19E9075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Agent.Team1", "TickTackToe.Agent.Team1\TickTackToe.Agent.Team1.csproj", "{42433D42-0C41-449F-B7B1-67C30E53D18B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Agent.Team2", "TickTackToe.Agent.Team2\TickTackToe.Agent.Team2.csproj", "{656E361C-DA53-4CAB-B5E7-AC519E679822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Agent.Team3", "TickTackToe.Agent.Team3\TickTackToe.Agent.Team3.csproj", "{79F6A086-735E-4881-B838-329C86F50B1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TickTackToe.Agent.Team4", "TickTackToe.Agent.Team4\TickTackToe.Agent.Team4.csproj", "{07DB54B5-03B3-41C3-8F98-E0FE5C69EC45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,22 @@ Global
 		{B8C3F0DF-C084-4D94-B623-24F3F19E9075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8C3F0DF-C084-4D94-B623-24F3F19E9075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8C3F0DF-C084-4D94-B623-24F3F19E9075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42433D42-0C41-449F-B7B1-67C30E53D18B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42433D42-0C41-449F-B7B1-67C30E53D18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42433D42-0C41-449F-B7B1-67C30E53D18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42433D42-0C41-449F-B7B1-67C30E53D18B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{656E361C-DA53-4CAB-B5E7-AC519E679822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{656E361C-DA53-4CAB-B5E7-AC519E679822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{656E361C-DA53-4CAB-B5E7-AC519E679822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{656E361C-DA53-4CAB-B5E7-AC519E679822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79F6A086-735E-4881-B838-329C86F50B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F6A086-735E-4881-B838-329C86F50B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F6A086-735E-4881-B838-329C86F50B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F6A086-735E-4881-B838-329C86F50B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07DB54B5-03B3-41C3-8F98-E0FE5C69EC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07DB54B5-03B3-41C3-8F98-E0FE5C69EC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07DB54B5-03B3-41C3-8F98-E0FE5C69EC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07DB54B5-03B3-41C3-8F98-E0FE5C69EC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

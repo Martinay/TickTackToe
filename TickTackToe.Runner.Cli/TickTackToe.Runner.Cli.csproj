@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TickTackToe.Agent.Team1\TickTackToe.Agent.Team1.csproj" />
+    <ProjectReference Include="..\TickTackToe.Agent.Team2\TickTackToe.Agent.Team2.csproj" />
+    <ProjectReference Include="..\TickTackToe.Agent.Team3\TickTackToe.Agent.Team3.csproj" />
+    <ProjectReference Include="..\TickTackToe.Agent.Team4\TickTackToe.Agent.Team4.csproj" />
     <ProjectReference Include="..\TickTackToe.Runner\TickTackToe.Runner.csproj" />
   </ItemGroup>
 

@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Linq;
 using TickTackToe.Agent;
+using TickTackToe.Agent.Team1;
+using TickTackToe.Agent.Team2;
+using TickTackToe.Agent.Team3;
+using TickTackToe.Agent.Team4;
 using TickTackToe.Game;
 
 namespace TickTackToe.Runner.Cli
 {
     class Program
     {
-        private const int MaxTrainingEpisodes = 100000;
-        private const int TournamentRuns = 100;
+        private const int MaxTrainingEpisodes = 100;
+        private const int TournamentRuns = 1000;
         private const bool LimitTrainingTime = true;
 
         static void Main()
         {
             // Setup
-            var maxTrainingTime = TimeSpan.FromMinutes(10);
+            var maxTrainingTime = TimeSpan.FromMinutes(2);
 
             var agent0 = new RandomAgent();
-            var agent1 = new RandomAgent();
+            var agent1 = new IfElseAgent();
 
             var startPlayerDeterminer = new RandomStartPlayerDeterminer();
             
